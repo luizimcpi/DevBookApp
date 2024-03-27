@@ -40,11 +40,13 @@ func FazerLogin(w http.ResponseWriter, r *http.Request) {
 
 	var dadosAutenticacao modelos.DadosAutenticacao
 	if erro = json.NewDecoder(response.Body).Decode(&dadosAutenticacao); erro != nil {
+		println("erro 1" + erro.Error())
 		respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro: erro.Error()})
 		return
 	}
 
 	if erro = cookies.Salvar(w, dadosAutenticacao.ID, dadosAutenticacao.Token); erro != nil {
+		println("erro 2" + erro.Error())
 		respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro: erro.Error()})
 		return
 	}
